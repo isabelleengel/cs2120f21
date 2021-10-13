@@ -210,3 +210,4 @@ def red_blue: ∃ (n: ℕ), red n ∧ blue n →
 /- 
 
 -/
+end
