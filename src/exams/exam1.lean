@@ -121,7 +121,7 @@ merge them and create a proof of P ∧ Q.
 
 ELIMINATION
 
-Given the elimination rules for ∧ in both
+Give the elimination rules for ∧ in both
 inference rule and English language forms.
 
 (P Q: Prop) (pq: P ∧ Q)
