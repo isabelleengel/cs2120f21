@@ -177,15 +177,14 @@ set comprehension notation.
 -/
 
 def empty' : set ℕ := {}
-def empty  : set ℕ := _
+def empty  : set ℕ := {n: ℕ | n/0=1}
 
 /- #2:
 Represent the entire set of the natural 
 numbers using set comprehension notation.
 -/
 
-def s2 : set ℕ := 
-  _
+def s2 : set ℕ := {n: ℕ | n = n}
 
 
 /- #3: 
