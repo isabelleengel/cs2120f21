@@ -196,7 +196,6 @@ end
 def s1'' : set nat := { 1, 2, 3, 4 }
 def s1''' := {1, 2, 3, 4} -- need explicit type
 
-<<<<<<< HEAD
 /- #1: 
 Represent the empty set using set comprehension. 
 
@@ -240,6 +239,4 @@ axioms (P Q : ℕ → Prop)
 
 def pSet  : set nat := { n : ℕ | P n}
 def qSet  : set nat := { n : ℕ | Q n}
-=======
->>>>>>> 3db13a70ed861144d4fa2709e4814bc33ca8822b
 

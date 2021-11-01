@@ -285,11 +285,7 @@ idea of subtraction, where, for example,
 -/
 
 def diff (s t : set α) : set α :=
-<<<<<<< HEAD
-{a | a ∈ s ∧ a ∉ t }
-=======
 { v | v ∈ s ∧ v ∉ t}
->>>>>>> 3db13a70ed861144d4fa2709e4814bc33ca8822b
 
 /-
 Powerset

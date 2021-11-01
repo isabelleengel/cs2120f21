@@ -121,7 +121,7 @@ merge them and create a proof of P ∧ Q.
 
 ELIMINATION
 
-Give the elimination rules for ∧ in both
+Given the elimination rules for ∧ in both
 inference rule and English language forms.
 
 (P Q: Prop) (pq: P ∧ Q)
@@ -205,7 +205,6 @@ axioms
   (Lynn: Person)
   -- (2) Lynn knows logic
   (LKL: KnowsLogic Lynn)
-  -- add answer here
 
 /-
 Now, formally state and prove the proposition that
@@ -331,7 +330,7 @@ This proposition states that we have a Type Person; each instance
 of type Person can potentially have the quality of being
 Nice and/or Talented (or neither). Additionally, a Person
 can Like a Person. Then, there's the idea that everyone 
-likes a Nice and Talented Person p; that is, if there is a Person
+likes a Nice and Talented Person; that is, if there is a Person
 that is both Nice and Talented, every single object of type
 Person (q) will Like this particular Person p. 
 
@@ -441,10 +440,10 @@ begin
   assumption,
   assume pornp, 
   cases pornp, 
-  assume nnp, 
-  contradiction, 
-  --how to show ¬ P → false? 
   assume np, 
+  contradiction, 
+  --how to show ¬ P → false? AKA P is true 
+
 
 end 
 
@@ -458,14 +457,27 @@ thre is someone who loves everyone. [5 points]
 -/
 
 --SYMMETRIC RELATION: IF I LOVE YOU YOU LOVE ME 
+--Therefore, the person who loves everyone is also loved by everyone 
+
+  
+
+
 
 axioms --(Person: Type)
  (Loves : Person → Person → Prop)
 
-  (Lover : Person)
+def sym_love : Prop := 
+-- If there's a person, p1, who everyone loves,
+  (∃ (p1 : Person), ∀ (p2 : Person), Loves p2 p1) → 
+  -- then there is someone who loves everyone
+  (∃ (e : Person), ∀ (s : Person), Loves e s) 
 
-  (∀ (p: Person), Loves Lover p)
-    (JLNT : Nice JohnLennon ∧ Talented JohnLennon),
-    (∀ (p : Person), Likes p JohnLennon) 
+example : sym_love := 
+begin 
+  unfold sym_love, 
+  assume h,
+  cases h with p1 pf,
+  apply exists.intro p1,
+  assume s, 
 
-example : ∃ Person l   := _
+end 
