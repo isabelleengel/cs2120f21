@@ -197,18 +197,12 @@ and c are related in (tc r) then a and c must also
 be related in r. For any length-2 "path" from a to c
 (via b), then there's a direct connection: (a,c) ∈ r. 
 -/
-<<<<<<< HEAD
-inductive tcx {α : Type} (r : α → α → Prop) : α → α → Prop
-| base  : ∀ a b, r a b → tcx a b
-| trans : ∀ a b c, tcx a b → tcx b c → tcx a c
-=======
 
 namespace hidden 
 
 inductive tc {α : Type} (r : α → α → Prop) : α → α → Prop
 | base  : ∀ a b, r a b → tc a b
 | trans : ∀ a b c, tc a b → tc b c → tc a c
->>>>>>> b1e15aeac74a2134ecff2e1e76a1947e23aa4536
 
 end hidden
 
