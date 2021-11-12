@@ -3,6 +3,7 @@ import .lecture_24
 /-
 BASIC SETUP
 -/
+
 namespace relations
 section relation
 
@@ -12,6 +13,9 @@ a type, β, with notation, x ≺ y, for (r x y).
 -/
 variables {α β γ : Type}  (r : β → β → Prop)
 local infix `≺`:50 := r  
+
+
+def asymmetric := ∀ ⦃x y⦄, x ≺ y → ¬ y ≺ x
 
 /-
 ORDERING RELATIONS ON A TYPE, β 
