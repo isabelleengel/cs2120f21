@@ -276,6 +276,9 @@ def transitive := ∀ ⦃x y z⦄, x ≺ y → y ≺ z → x ≺ z
 
 example : transitive (@eq α) :=
 begin
+  unfold transitive, 
+  assume x y z xy yz, 
+  apply trans xy yz, 
 end
 
 /-

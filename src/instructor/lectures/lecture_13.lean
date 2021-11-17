@@ -49,7 +49,6 @@ some object satisfies the predicate. The proof
 then shows for sure that that is so.
 -/
 
-<<<<<<< HEAD
 example : ∃ (b : bool), b && tt = ff :=
 begin
 end
@@ -60,7 +59,6 @@ begin
   cases h with w pf,
   apply exists.intro w,
   trivial,
-=======
 /-
 There is (exists) a Boolean value, b, that 
 satisfies the predicate, b && tt = f.
@@ -83,7 +81,6 @@ begin
  cases h with w pf,     -- eliminate exists
  apply exists.intro w,  -- introduce exists
  trivial,               -- the rest is easy
->>>>>>> fcba5ad44160653f0c0421bdee35d9d0532b3390
 end
 
 

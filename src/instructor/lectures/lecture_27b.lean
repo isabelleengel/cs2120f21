@@ -120,7 +120,7 @@ def surjective :=
   ∀ (b : β), ∃ a : α, r a b
 
 /-
-Should this be true?
+Should this be true? Yes
 -/
 
 example : 
@@ -128,6 +128,10 @@ example :
   image_set r (dom r) = { b : β | true } :=
 begin
 -- homework
+unfold surjective image_set total_function function defined single_valued, 
+assume a, 
+cases a with c d, 
+
 end
 
 /-

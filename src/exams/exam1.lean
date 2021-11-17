@@ -443,8 +443,7 @@ begin
   assume np, 
   contradiction, 
   --how to show ¬ P → false? AKA P is true 
-
-
+   assume nnp, 
 end 
 
 
@@ -479,5 +478,6 @@ begin
   cases h with p1 pf,
   apply exists.intro p1,
   assume s, 
+
 
 end 
