@@ -2,6 +2,7 @@ import .lecture_26
 import data.set
 
 namespace relations
+
 section functions
 
 variables {α β γ : Type} (r : α → β → Prop)
@@ -182,15 +183,11 @@ example :
   surjective r → 
   image_set r (dom r) = { b : β | true } :=
 begin
-<<<<<<< HEAD
 -- homework
 unfold surjective image_set total_function function defined single_valued, 
 assume a, 
 cases a with c d, 
 
-=======
--- homework (on your own ungraded but please do it!)
->>>>>>> 23b28807c372de24b02d227ef774837e75c35377
 end
 
 /-
@@ -426,7 +423,7 @@ def bijectivep := function r ∧ bijective (dom_res r (dom_of_def r))
 
 
 
--- #2: Prove that the inverse of a bijective function is bijective.
+-- EXERCISE #2: Prove that the inverse of a bijective function is bijective.
 example : bijective r → bijective (inverse r) :=
 begin
   assume bi, 
@@ -486,12 +483,18 @@ end
 
 
 /-
-#3: Prove that the inverse of the inverse of a bijective
+EXERCISE #3: Prove that the inverse of the inverse of a bijective
 function is that function.
 -/
 example : bijective r → (r = inverse (inverse r)) :=
 begin
+  --assumptions, unfold everything
   assume bi, 
+  unfold inverse, 
+
+  /-
+  turns out i didn't need to do all this but i'm proud of it so it will stay in a comment 
+
   cases bi with sur inj, 
   cases sur with total one_to_one, 
   unfold total_function at total, 
@@ -500,20 +503,41 @@ begin
   unfold defined at define,  
   cases inj with total one_to_one, 
   unfold total_function at total, 
+  cases total with funct defin, 
+  unfold function single_valued at funct, 
+  unfold defined at defin, 
   
+  unfold inverse, 
+  
+  -/ 
   
 end
 
 /-
-#4: Formally state and prove that every injective function 
+EXERCISE  #4: Formally state and prove that every injective function 
 has a *function* as an inverse.
 -/
 example : injective r → function (inverse r) :=
-  _ -- hint: remember recent work
+  -- hint: remember recent work
+begin 
+  --intros and unfolding... 
+  assume inj, 
+  unfold injective at inj, 
+  cases inj with total onto, 
+  unfold total_function at total, 
+  cases total with func define,
+  unfold function single_valued at func, 
+  unfold defined at define, 
+
+  ----now to the interesting stuff! 
+  unfold function inverse single_valued, 
+  assume b a1 a2 c d, 
+  apply onto c d, 
+end 
 
 
 /-
-#5. Is bijectivity transitive? In other words, if the
+EXERCISE #5. Is bijectivity transitive? In other words, if the
 relations, s and r, are both bijective, then is the
 composition, s after r, also always bijective? Now
 we'll see.
@@ -525,9 +549,65 @@ open relations    -- for definition of composition
 Check the following proposition. True? prove it for all.
 False? Present a counterexample.
 -/
+
 def bij_trans (s : β → γ → Prop)  (r : α → β → Prop) :
   bijective r → bijective s → bijective (composition s r) := 
-  _
+
+/-
+This proposition is false. Here's a counter example: let's say that 
+set r has four α values mapped to four β values, and set s only has 
+3 β values mapped to 3 γ values. This will not be bijective, because
+not every α is connected to a γ value. 
+
+Another counterexample: let's say that set r maps to β values {1, 2, 3}, 
+while set s maps from β values {4, 5, 6}. It is not possible
+for the composition of these two sets to be bijective because you 
+can not map from α to β to γ, seeing as none of the β values are 
+equal and therefore it is not possible to connect them all, 
+thus violatiing the definition of bijectivity. 
+-/
+
+
+
+
+
+  /-
+  ATTEMPT AT PROOF THAT I HAVE DEEMED FALSE: NOT PART OF THAT ANSWER
+  begin 
+    assume bi1 bi2, 
+    unfold bijective at bi1 bi2, 
+    have inj1 := and.elim_right bi1, 
+    have inj2 := and.elim_right bi2,
+    have sur1 := and.elim_left bi1, 
+    have sur2 := and.elim_left bi2, 
+    --break it down within surjective proofs
+    unfold surjective at sur1 sur2,
+    have onto_sur1 := and.elim_right sur1, 
+    have onto_sur2 := and.elim_right sur2, 
+    have total_sur1 := and.elim_left sur1, 
+    have total_sur2 := and.elim_left sur2, 
+    unfold total_function at total_sur1 total_sur2, 
+    have def_sur1 := and.elim_right total_sur1, 
+    have def_sur2 := and.elim_right total_sur2, 
+    --unfold defined function at def
+    unfold defined function single_valued at total_sur1 total_sur2, 
+    unfold defined function at def_sur1 def_sur2, 
+  
+  --break down the injective stuff
+    unfold injective total_function at inj1 inj2,  
+    have need := and.elim_right inj2, 
+
+  --break down goals  
+    unfold bijective, 
+    unfold composition, 
+    apply and.intro, 
+    apply and.intro, 
+    unfold surjective total_function function defined single_valued, 
+    apply and.intro, 
+    assume x y z l1 l2, 
+    apply need l1 l2, 
+    --apply! 
+  end -/
 
 /-
 In general, an operation (such as inverse, here) that, 
