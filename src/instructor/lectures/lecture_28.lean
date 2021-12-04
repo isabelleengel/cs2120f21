@@ -665,16 +665,21 @@ assume n,
 -- construct function by induction/recursion
 -- have to give partial answers for two cases
 <<<<<<< HEAD
+<<<<<<< HEAD
 induction n, 
 --apply nat.rec_on n,
 =======
 induction n,
 >>>>>>> 1c4147a9597b5897d242121be261dae2a1d450c9
+=======
+induction n with n' ih,
+>>>>>>> 6f27f36e4b709f7b78ff25e03754972eb8fa31f2
 -- answer for base case, n = 0
 exact 0, 
 -- show if we have answer for n' we can derive answer one for n'+1
 --assume n',              -- suppose n' is arbitrary
 --assume result_for_n',   -- assume result for n' (ind. hypothesis)
+<<<<<<< HEAD
 <<<<<<< HEAD
 --exact result_for_n' + (n' + 1),   -- answer for n' + 1
 --n_n: n'   n_ih: answer for n'
@@ -685,6 +690,9 @@ end
 --recursive
 =======
 exact n_ih + (n_n+1),  -- answer for n' + 1
+=======
+exact ih + (n'+1),  -- answer for n' + 1
+>>>>>>> 6f27f36e4b709f7b78ff25e03754972eb8fa31f2
 end
 
 #eval sum_to 100
