@@ -146,7 +146,24 @@ def fib : nat → nat
 /- #5: Cassini's Identity (Fibonacci) -/
 
 -- (-1)^n means -1 if n is odd, 1 if n is even (includes 0) 
-example: ∀ (n: ℕ), (fib(nat.succ n)*fib(nat.succ n)) - (fib(nat.succ (nat.succ n)) * fib(n)) = (-1)^n := 
+def ev (n : ℕ) := n % 2 = 0
+def od (n : ℕ) := n % 2 = 1 
+
+
+example: ∀ (n: ℕ), (ev n → (fib(nat.succ n)*fib(nat.succ n)) - (fib(nat.succ (nat.succ n)) * fib(n)) = 1) ∧ 
+ (od n → (fib(nat.succ (nat.succ n)) * fib(n)) - (fib(nat.succ n)*fib(nat.succ n)) = 1) := 
 begin 
+    assume n, 
+    apply and.intro, 
+    induction n with n' ev_ih, 
+    unfold fib ev, 
+    assume zero, 
+    ring_nf, 
+    rw nat.succ_eq_add_one, 
+    unfold fib,  
+    ring_nf,
+    rw right_distrib, 
+    rw right_distrib, 
+    ring_nf, 
 
 end 
