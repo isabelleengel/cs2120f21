@@ -14,15 +14,14 @@ the chapter.-/
 Write the principle of complete induction using the notation of symbolic logic.
 -/
 
---complete induction principle 
-
+--complete induction principle: if Prop P is true for ALL the numbers 
+--before n', then we can prove that P(n'+1) is true via strong induction 
 
 --set up: 
-def less_than (m n : ℕ) : Prop := m - n < 0 
-def less_than_nat (n: ℕ) : set ℕ := {m : ℕ | less_than n}
 def P : Prop (nat) sorry, --used sorry because does not matter what Prop P is for us, only that it exists 
 --If P is true for all ℕ < (n: ℕ), then P is true for n 
-∀ (n: ℕ), (∀ P (less_than_nat n) → true) → (P n → true) 
+
+∀ (n n': ℕ), ∀ (n'≤ n), P (n') → P (n' + 1) 
 
 /-#2. Solve one of #2 and #3. Give
 detailed but informal proofs. -/
@@ -80,9 +79,24 @@ To test out of the final exam ...
 #1: Give a formal proof for #2 or #3.
 #2: Formal or detailed informal proofs 10-13 -/
 
---WRITE BETTER PROOFS OF THESE- LONG WAY 
+/- IMPORTANT NOTE: for  #10-#13, I did not create seperate machines for each
+part of induction, a seperate conjecture to prove, etc. because I formally proved 
+them soundly with induction. If this is not okay, I also provided detailed informal 
+proofs for every question, as it was stated that I could do that. Thanks! 
+ -/
+
 /-10. Give an informal but detailed proof that for every natural number 𝑛, 1⋅𝑛=𝑛, 
-using a proof by induction, the definition of multiplication, and the theorems proved in Section 17.4.-/
+using a proof by induction, the definition of multiplication, and the theorems proved in Section 17.4.
+-/
+/-
+Here, we use proof by induction to prove that (1 * n) = n for all natural numbers. 
+First we must assume the premise and apply the induction principle, meaning we 
+need to prove both the base case and the inductive case. The base case, where n=0,
+can be proved through refelxitivity of equality (1*0=0). Then, for the inductive case,
+we need to prove that n.succ * 1 = n.succ. If we rewrite this as (n+1)*1=n+1, we can
+simply use basic algebra to show this is true. QED. 
+-/
+
 example : ∀ (n: ℕ), (1 * n) = n := 
 begin 
     assume n, 
@@ -96,7 +110,20 @@ end
 
 /-11. Show that multiplication distributes over addition.
  In other words, prove that for natural numbers 𝑚, 𝑛, and 𝑘, 𝑚(𝑛+𝑘)=𝑚𝑛+𝑚𝑘. 
- You should use the definitions of addition and multiplication and facts proved in Section 17.4 (but nothing more).-/
+ You should use the definitions of addition and multiplication and facts proved in Section 17.4 (but nothing more).
+ -/
+/-
+Let's use proof by induction to prove that, for all the natural numbers, multiplication
+is distributitve over addition. In other words, let's prove that m(n+k) = mn+mk is true,
+assuming m, n, and k are all natural numbers. After assuming our intros, let's induce
+the m variable, meaning this is the variable that we want to assess the base case and 
+inductive case for. For the base case, where m=0, we can just use basic algebra to show 
+that 0+(n+k) = ((0*n) + (0+k)), reducing this to 0=0 which is true through reflexitvity 
+of equality. To prove the inductive case, let's rewrite m.successor as m+1. So, we have
+to prove that ((m+1) * (n+k)) = ((m+1) * n) + ((m+1) * k). Let's fully expand the values 
+on both sides of the equation. This expanded form leaves us with 
+mn + n + mk + k = mn + n + mk + k. Clearly, these two statements are equal. QED. 
+-/
 
 example: ∀ (m n k: ℕ), (m * (n + k)) = ((m*n) + (m*k) ) := 
 begin 
@@ -110,8 +137,19 @@ begin
 end 
 
 /-12. Prove the multiplication is associative, in the same way. 
-You can use any of the facts proved in Section 17.4 and the previous exercise.-/
-
+You can use any of the facts proved in Section 17.4 and the previous exercise.
+-/
+/-
+Let's prove multiplication is associative by induction. This means that we need to show 
+(m * (n*k)) =  ((m*n) *k), where m, n, and k are natural numbers. After assuming our intros, 
+let's use proof by inductiong where we induce m. This means our base case
+ will be (0 * (n*k)) =  ((0*n) *k); clearly, we can simply use 
+basic algebra to show that both sides are equal to 0, where we can use reflexitivity of 
+equality to show this is therefore true. The inductive case will have us prove that 
+((m+1) * (n*k)) =  (((m+1)*n) *k), having already rewritten the successor of m as m+1. 
+Now, we can simply distribute the values amongst themselves to show that this expression 
+is equal to mnk + nk = mnk + nk, which is clearly true. QED. 
+-/
 
 example: ∀ (m n k: ℕ), (m * (n*k)) =  ((m*n) *k) := 
 begin 
@@ -124,7 +162,17 @@ begin
     ring, 
 end 
 
-/-13. Prove that multiplication is commutative.-/
+/-13. Prove that multiplication is commutative.
+-/
+/- 
+Now we must prove that multiplication is commutative; meaning, we need to show that 
+(m * n) = (n* m), assuming n and m are natural numbers. After assuming our intros, 
+let's use inductuion on m. First, our base case where m=0; we are left with the equation
+0*n=n*0, which we easily prove true through basic algebra and reflextivity of equality. 
+Then, our induction case. We are left with (m+1)*n=n*(m+1); we can use distribution to show
+that mn+n=nm+n, and we can simply use basic algebra from here to show that these two 
+properties are equal. QED.  
+-/
 example: ∀ (m n: ℕ), (m * n) = (n* m) := 
 begin 
     assume m n, 
@@ -138,6 +186,7 @@ end
 
 /-#3 (Extra Credit): #5 or #9-/
 
+--need to define a fibonacci number in Lean to attempt #5
 def fib : nat → nat 
 | 0 := 0
 | 1 := 1 
@@ -149,6 +198,15 @@ def fib : nat → nat
 def ev (n : ℕ) := n % 2 = 0
 def od (n : ℕ) := n % 2 = 1 
 
+/-
+Note: Lean would not allow me to declare the proposition = (-1)^n, since this only 
+deals with natural numbers and -1 is not a natural number. However, I knew how to fix 
+that aspect of it: I simply declared that, when n (the ℕ) was even, the proposition would 
+equal 1. Now, what to do for odd numbers, since I still can't declare that it would equal
+-1? Well, I reversed the subtraction. That way, I could set the reverse equation equal to 1, 
+knowing this would be equal to the correctly-ordered equation being equal to -1. 
+Add an "and" between these two propositions and I'm ready to begin! 
+-/
 
 example: ∀ (n: ℕ), (ev n → (fib(nat.succ n)*fib(nat.succ n)) - (fib(nat.succ (nat.succ n)) * fib(n)) = 1) ∧ 
  (od n → (fib(nat.succ (nat.succ n)) * fib(n)) - (fib(nat.succ n)*fib(nat.succ n)) = 1) := 
@@ -160,10 +218,18 @@ begin
     assume zero, 
     ring_nf, 
     rw nat.succ_eq_add_one, 
-    unfold fib,  
-    ring_nf,
+    rw nat.succ_eq_add_one, 
+    rw nat.succ_eq_add_one, 
+    assume even, 
+    ring_nf, 
+    ring, 
+    ring, 
+    ring, 
+    ring, 
+    ring, ring, ring_nf, ring, ring, ring, 
     rw right_distrib, 
     rw right_distrib, 
     ring_nf, 
+    
 
 end 
